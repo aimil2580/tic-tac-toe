@@ -1,0 +1,21 @@
+* {
+  box-sizing: border-box;
+}
+
+#board {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  place-items: center;
+  width: fit-content;
+  gap: 0px;
+  margin: auto;
+  
+  button {
+    border: solid black 1px;
+    display: block;
+    width: 4em;
+    height: 4em;
+    
+  }
+
+}
