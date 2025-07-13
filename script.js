@@ -18,12 +18,39 @@ let board =[];
 for (let tile in tiles){
   board.push(tiles[tile])
   tiles[tile].addEventListener("click" ,()=>{
-    turnCounter % 2===0 ? tiles[tile].textContent = fisrtPlayerSimbol : tiles[tile].textContent = secondPlayerSimbol;
-    turnCounter+=1
 
-  
+    console.log(tile)
+
+    if(tiles[tile].textContent !== fisrtPlayerSimbol && tiles[tile].textContent !== secondPlayerSimbol){
+      turnCounter % 2===0 ? tiles[tile].textContent = fisrtPlayerSimbol 
+      : tiles[tile].textContent = secondPlayerSimbol;
+
+      board[tile[1]-1] = turnCounter % 2===0 ? fisrtPlayerSimbol : secondPlayerSimbol;
+      console.log(board)
+
+      turnCounter+=1
+      
+    }
+    checkIfWon()
   })
 }
 
-console.log(board)
+const checkIfWon = () => {
+  if (board[0] === board[1] && board[1] === board[2]||
+      board[3] === board[4] && board[4] === board[5]||
+      board[6] === board[7] && board[7] === board[8]||
+      board[0] === board[3] && board[3] === board[6]||
+      board[1] === board[4] && board[4] === board[7]||
+      board[2] === board[5] && board[5] === board[8]||
+      board[0] === board[4] && board[4] === board[8]||
+      board[2] === board[4] && board[4] === board[6]
+    ) {
+      console.log("win")
+  }
+}
+
+function stopGame() {
+
+}
+
 
