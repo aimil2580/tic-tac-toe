@@ -1,40 +1,31 @@
-const tiles = {
-  t1 : document.querySelector(".t1"),
-  t2 : document.querySelector(".t2"),
-  t3 : document.querySelector(".t3"),
-  t4 : document.querySelector(".t4"),
-  t5 : document.querySelector(".t5"),
-  t6 : document.querySelector(".t6"),
-  t7 : document.querySelector(".t7"),
-  t8 : document.querySelector(".t8"),
-  t9 : document.querySelector(".t9"),
-}
-
-let turnCounter = 1;
 const fisrtPlayerSimbol = "X";
 const secondPlayerSimbol = "O";
+const results = document.getElementById("results");
+const reset = document.querySelector(".reset").addEventListener("click" , ()=>{restart()})
+let turnCounter = 0;
 let board =[];
+let someoneWon = false;
 
-for (let tile in tiles){
-  board.push(tiles[tile])
-  tiles[tile].addEventListener("click" ,()=>{
+const tiles = new Object()
+for ( let i=1;i<10;i++){
+  tiles[`t${i}`] = document.querySelector(`.t${i}`)
 
-    console.log(tile)
+  board.push(tiles[`t${i}`])
 
-    if(tiles[tile].textContent !== fisrtPlayerSimbol && tiles[tile].textContent !== secondPlayerSimbol){
-      turnCounter % 2===0 ? tiles[tile].textContent = fisrtPlayerSimbol 
-      : tiles[tile].textContent = secondPlayerSimbol;
+  tiles[`t${i}`].addEventListener("click" ,()=>{
 
-      board[tile[1]-1] = turnCounter % 2===0 ? fisrtPlayerSimbol : secondPlayerSimbol;
-      console.log(board)
+    if(tiles[`t${i}`].textContent !== fisrtPlayerSimbol && tiles[`t${i}`].textContent !== secondPlayerSimbol && someoneWon === false){
+      turnCounter % 2===0 ? tiles[`t${i}`].textContent = fisrtPlayerSimbol
+      : tiles[`t${i}`].textContent = secondPlayerSimbol;
+
+      board[`t${i}`[1]-1] = turnCounter % 2===0 ? fisrtPlayerSimbol : secondPlayerSimbol;
+      
 
       turnCounter+=1
-      
     }
     checkIfWon()
   })
 }
-
 const checkIfWon = () => {
   if (board[0] === board[1] && board[1] === board[2]||
       board[3] === board[4] && board[4] === board[5]||
@@ -45,12 +36,25 @@ const checkIfWon = () => {
       board[0] === board[4] && board[4] === board[8]||
       board[2] === board[4] && board[4] === board[6]
     ) {
-      console.log("win")
+
+      results.textContent = `player with the: "${(turnCounter-1) % 2===0 ?  fisrtPlayerSimbol 
+      : secondPlayerSimbol}", won!!`;
+      
+      someoneWon = true
   }
 }
 
-function stopGame() {
+function restart() {
+  for (let i=0;i<10;i++){
+    board[i] = i;
+  }
+  for( tile in tiles){
+    tiles[tile].textContent =  ""
+  }
 
+  results.textContent = "";
+  someoneWon = false;
+  turnCounter = 0;
 }
 
 
