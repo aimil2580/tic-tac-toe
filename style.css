@@ -9,13 +9,45 @@
   width: fit-content;
   gap: 0px;
   margin: auto;
-  
+
   button {
+    all: unset;
     border: solid black 1px;
     display: block;
     width: 4em;
     height: 4em;
-    
+    text-align: center;
   }
 
+}
+
+.options {
+  display: flex;
+  place-content: center;
+  margin: 3em;
+  gap: 1em;
+
+  button {
+    all: unset;
+    width:fit-content;
+    border: 1px black solid;
+    padding: 0.2em;
+    border-radius: 6px;
+    user-select: none;
+    background-color: rgb(220, 220, 220);
+    transition: background-color 0.3s ease-out;
+    box-shadow: 0px 0px 3px  rgb(97, 97, 97);
+  }
+
+  button:hover {
+    background-color: rgb(129, 129, 129);
+
+  }
+}
+
+
+#results {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
