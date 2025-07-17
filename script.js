@@ -1,9 +1,7 @@
 const fisrtPlayerSimbol = "X";
 const secondPlayerSimbol = "O";
 const results = document.getElementById("results");
-const reset = document
-.querySelector(".reset")
-.addEventListener("click", () => {
+const reset = document.querySelector(".reset").addEventListener("click", () => {
   restart();
 });
 const themeSwitch = document
@@ -63,18 +61,14 @@ const checkIfWon = () => {
   ) {
     (turnCounter - 1) % 2 === 0 ? (scoreX += 1) : (scoreO += 1);
 
-    // results.textContent = `Player with the: "${
-    //   (turnCounter - 1) % 2 === 0 ? fisrtPlayerSimbol : secondPlayerSimbol
-    // }", won!! score is ${scoreX} - ${scoreO}`;
-
     messanger(
       `Player with the: "${
         (turnCounter - 1) % 2 === 0 ? fisrtPlayerSimbol : secondPlayerSimbol
-      }", won!! score is ${scoreX} - ${scoreO}`
+      }", won!! score is ${scoreX} - ${scoreO}`,
     );
     someoneWon = true;
   } else if (someoneWon === false && turnCounter === 9) {
-    messanger(`Draw! no one get's point ${scoreX} - ${scoreO}`)
+    messanger(`Draw! no one get's point ${scoreX} - ${scoreO}`);
   }
 };
 
@@ -86,7 +80,6 @@ function restart() {
     tiles[tile].textContent = "";
   }
 
-  // results.textContent = "";
   someoneWon = false;
   turnCounter = 0;
 }
