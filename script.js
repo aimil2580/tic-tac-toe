@@ -1,12 +1,28 @@
 const fisrtPlayerSimbol = "X";
 const secondPlayerSimbol = "O";
 const results = document.getElementById("results");
-const reset = document.querySelector(".reset").addEventListener("click", () => {
-  restart();
+const reset = document
+  .querySelector(".reset")
+  .addEventListener("click", () => {
+    restart();
 });
+const themeSwitch = document
+  .querySelector(".themeSwitch")
+  .addEventListener("click", () => {
+    lightdark();
+  });
+const clearScore = document
+  .querySelector(".clearScore")
+  .addEventListener("click", () => {
+    clsScore()
+  });
+const root = document.documentElement;
+
 let turnCounter = 0;
 let board = [];
 let someoneWon = false;
+let scoreX = 0;
+let scoreO = 0;
 
 const tiles = new Object();
 for (let i = 1; i < 10; i++) {
@@ -29,7 +45,9 @@ for (let i = 1; i < 10; i++) {
 
       turnCounter += 1;
     }
-    checkIfWon();
+    if (!someoneWon) {
+      checkIfWon();
+    }
   });
 }
 const checkIfWon = () => {
@@ -43,10 +61,17 @@ const checkIfWon = () => {
     (board[0] === board[4] && board[4] === board[8]) ||
     (board[2] === board[4] && board[4] === board[6])
   ) {
-    results.textContent = `player with the: "${
-      (turnCounter - 1) % 2 === 0 ? fisrtPlayerSimbol : secondPlayerSimbol
-    }", won!!`;
+    (turnCounter - 1) % 2 === 0 ? (scoreX += 1) : (scoreO += 1);
 
+    // results.textContent = `Player with the: "${
+    //   (turnCounter - 1) % 2 === 0 ? fisrtPlayerSimbol : secondPlayerSimbol
+    // }", won!! score is ${scoreX} - ${scoreO}`;
+
+    messanger(
+      `Player with the: "${
+        (turnCounter - 1) % 2 === 0 ? fisrtPlayerSimbol : secondPlayerSimbol
+      }", won!! score is ${scoreX} - ${scoreO}`
+    );
     someoneWon = true;
   }
 };
@@ -55,13 +80,38 @@ function restart() {
   for (let i = 0; i < 10; i++) {
     board[i] = i;
   }
-  for (tile in tiles) {
+  for (const tile in tiles) {
     tiles[tile].textContent = "";
   }
 
-  results.textContent = "";
+  // results.textContent = "";
   someoneWon = false;
   turnCounter = 0;
-
-  results.textContent = "";
 }
+
+const lightdark = () => {
+  if (getComputedStyle(root).getPropertyValue("--bgColor") === "#8DBCC7") {
+    root.style.setProperty("--bgColor", "#393E46");
+    root.style.setProperty("--details", "#DFD0B8");
+    root.style.setProperty("--hover", "#718b94ff");
+  } else {
+    root.style.setProperty("--bgColor", "#8DBCC7");
+    root.style.setProperty("--details", "#065084");
+    root.style.setProperty("--hover", "#A4CCD9");
+  }
+};
+
+const messanger = (text) => {
+  const elem = document.createElement("div");
+  elem.textContent = text;
+  results.insertBefore(elem ,results.firstChild);
+};
+
+const clsScore = () => {
+  scoreO = 0;
+  scoreX = 0;
+  restart();
+  while (results.hasChildNodes()) {
+    results.removeChild(results.firstChild);
+  }
+};
