@@ -2,9 +2,9 @@ const fisrtPlayerSimbol = "X";
 const secondPlayerSimbol = "O";
 const results = document.getElementById("results");
 const reset = document
-  .querySelector(".reset")
-  .addEventListener("click", () => {
-    restart();
+.querySelector(".reset")
+.addEventListener("click", () => {
+  restart();
 });
 const themeSwitch = document
   .querySelector(".themeSwitch")
@@ -14,7 +14,7 @@ const themeSwitch = document
 const clearScore = document
   .querySelector(".clearScore")
   .addEventListener("click", () => {
-    clsScore()
+    clsScore();
   });
 const root = document.documentElement;
 
@@ -73,6 +73,8 @@ const checkIfWon = () => {
       }", won!! score is ${scoreX} - ${scoreO}`
     );
     someoneWon = true;
+  } else if (someoneWon === false && turnCounter === 9) {
+    messanger(`Draw! no one get's point ${scoreX} - ${scoreO}`)
   }
 };
 
@@ -104,7 +106,7 @@ const lightdark = () => {
 const messanger = (text) => {
   const elem = document.createElement("div");
   elem.textContent = text;
-  results.insertBefore(elem ,results.firstChild);
+  results.insertBefore(elem, results.firstChild);
 };
 
 const clsScore = () => {
